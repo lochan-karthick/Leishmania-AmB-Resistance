@@ -1,0 +1,28 @@
+# macOS system files
+.DS_Store
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# SLURM logs and output files
+slurm-*.out
+*.log
+
+# Conda environments and virtualenvs
+.env/
+.venv/
+*.conda
+*.egg-info
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# VS Code settings (if used)
+.vscode/
+
+# Python cache
+__pycache__/
+*.py[cod]
