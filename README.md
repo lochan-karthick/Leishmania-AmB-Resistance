@@ -1,62 +1,58 @@
-# Amphotericin B Resistance in *Leishmania mexicana*: A Polyomics Analysis
+# Amphotericin B Resistance in *Leishmania mexicana*
 
-This repository contains scripts and documentation for a multi-omics investigation into Amphotericin B (AmB) resistance in *Leishmania mexicana*.
-The project combines **genomics**, **metabolomics**, and **structural modeling** to investigate how the N176I mutation in the CYP51 gene may contribute to AmB resistance.
+This repository contains scripts and selected analysis outputs from a multi-omics investigation of amphotericin B (AmB) resistance in *Leishmania mexicana*.
 
----
+The project combines genomics, metabolomics, and structural modelling to investigate potential mechanisms of drug resistance, including the possible role of the N176I mutation in the CYP51 protein.
 
-##Project Structure
+## Repository Structure
 
-Leishmania-AmB-Resistance/
-├── scripts/ # Bash scripts for the genomics pipeline
-├── results/
-│ ├── coverage/ # Coverage plots and bedgraph files
-│ ├── metabolomics/ # PCA plots, volcano plots, etc.
-│ └── structural_modelling/ # Structure visualizations, docking outputs
-├── OBJECTIVES.md # Session-wise objectives and tasks
-├── README.md # Project overview and documentation
-└── .gitignore # Ignored files and folders
+| Directory | Contents |
+|---|---|
+| `scripts/` | Bash scripts for genomic analysis on an HPC cluster |
+| `results/coverage/` | Coverage analysis notebook and visualisation |
+| `results/metabolomics/` | Metabolite intensity, normalisation, PCA, and volcano plots |
+| `results/modelling/` | Structural models, docking poses, and protein visualisations |
 
----
+## Genomic Analysis
 
-##Genomic Analysis Pipeline
+The genomic analysis workflow includes:
 
-- Read trimming using **Trim Galore**
-- Reference genome indexing using **Bowtie2-build**
-- Read alignment with **Bowtie2**
-- Conversion and sorting of SAM to BAM using **Samtools**
-- BAM indexing for SNP calling
-- Joint SNP calling using **FreeBayes**
-- SNP filtering using **vcffilter**
-- VCF sample splitting and unique SNP extraction using **bcftools**
-- Variant annotation using **SnpEff**
-- Non-synonymous mutation extraction using **SnpSift**
+1. Read trimming using Trim Galore
+2. Reference genome indexing using Bowtie2
+3. Read alignment using Bowtie2
+4. SAM/BAM processing and indexing using SAMtools
+5. Joint SNP calling using FreeBayes
+6. SNP filtering using vcffilter
+7. Sample-specific variant extraction using bcftools
+8. Functional variant annotation using SnpEff
+9. Non-synonymous variant extraction using SnpSift
 
-Scripts for all steps are in the `scripts/` folder and designed for SLURM job submission on the MARS HPC cluster.
+The scripts were developed for SLURM job submission on the MARS HPC cluster.
 
----
+## Coverage Analysis
 
-##Coverage Analysis
+Genome coverage was analysed using alignment-derived coverage data and bamCoverage.
 
-- Genome-wide and per-chromosome coverage computed using `bamCoverage`
-- Median coverage and variability analyzed in `results/coverage/coverage_explore.ipynb`
-- Visualizations highlight ploidy differences and structural variation in resistant vs. wild-type strains
+The Jupyter notebook in `results/coverage/` explores coverage patterns, including differences between wild-type and resistant samples.
 
+## Metabolomics
 
----
+Metabolomics analysis involved mass spectrometry data processed using XCMS and MZMatch.
 
-##Metabolomics & Structural Modelling
+The repository includes selected visualisations of metabolite intensities, data normalisation, principal component analysis (PCA), and differential metabolite abundance.
 
-These analyses were performed manually using GUI and online tools.
+## Structural Modelling
 
-##Metabolomics:
-- Mass spectrometry analysis using Orbitrap Exactive
-- Processed via XCMS + MZMatch
-- Normalized, filtered data visualized with PCA and volcano plots
-- Files stored in `results/metabolomics/`
+Protein structure and docking analyses used SWISS-MODEL, SwissDock, ChimeraX, DeepLoc, and SignalP.
 
-##Structural Modelling:
-- Homology modelling with SWISS-MODEL
-- Docking with SwissDock and visualized in ChimeraX
-- Subcellular localization predicted using DeepLoc and SignalP
-- Figures saved in `results/structural_modelling/`
+The figures in `results/modelling/` illustrate structural comparisons, docking poses, and predicted protein localisation.
+
+## Data and Reproducibility
+
+Raw sequencing data, intermediate alignment files, variant calls, and original metabolomics datasets are not included.
+
+The genomics scripts contain cluster-specific paths and settings and require the relevant reference files, input data, software dependencies, and SLURM environment.
+
+Metabolomics and structural modelling were also performed using external and graphical tools. Their original interactive workflows are not fully reproduced by the scripts in this repository.
+
+This repository therefore documents the analysis workflow and selected results rather than providing a fully automated, independently reproducible pipeline.
